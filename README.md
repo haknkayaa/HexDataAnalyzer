@@ -4,7 +4,7 @@ Tarayıcıda çalışan, ham hex verisini byte aralıklarına ayırıp renklerle
 
 **Canlı demo:** [haknkayaa.github.io/HexDataAnalyzer](https://haknkayaa.github.io/HexDataAnalyzer/)
 
-[![Hexscope ekran görüntüsü](images/capture.PNG)](https://haknkayaa.github.io/HexDataAnalyzer/)
+[![Hexscope ekran görüntüsü](images/capture.png)](https://haknkayaa.github.io/HexDataAnalyzer/)
 
 ## Neler yapabilir?
 
