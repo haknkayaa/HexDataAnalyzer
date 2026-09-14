@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "hex": "2A F6 12 34 FB 2E 00 01 E2 40 FF FE 1D C0 40 49 0F DB 40 09 21 FB 54 44 2D 18",
+  "fields": [
+    { "label": "uint8 örneği", "color": "#60a5fa", "startIndex": 0, "endIndex": 1, "dataType": "uint8" },
+    { "label": "int8 örneği", "color": "#f472b6", "startIndex": 1, "endIndex": 2, "dataType": "int8" },
+    { "label": "uint16 örneği", "color": "#34d399", "startIndex": 2, "endIndex": 4, "dataType": "uint16" },
+    { "label": "int16 örneği", "color": "#f59e0b", "startIndex": 4, "endIndex": 6, "dataType": "int16" },
+    { "label": "uint32 örneği", "color": "#818cf8", "startIndex": 6, "endIndex": 10, "dataType": "uint32" },
+    { "label": "int32 örneği", "color": "#fb7185", "startIndex": 10, "endIndex": 14, "dataType": "int32" },
+    { "label": "Float32 π", "color": "#22c55e", "startIndex": 14, "endIndex": 18, "dataType": "float" },
+    { "label": "Float64 π", "color": "#38bdf8", "startIndex": 18, "endIndex": 26, "dataType": "double" }
+  ],
+  "name": "Sayısal veri türleri"
+}

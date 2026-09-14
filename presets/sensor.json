@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "hex": "2A 00 1E 41 48 00 00",
+  "fields": [
+    {
+      "label": "Cihaz ID",
+      "color": "#60a5fa",
+      "startIndex": 0,
+      "endIndex": 1,
+      "dataType": "uint8"
+    },
+    {
+      "label": "Örnek sayısı",
+      "color": "#f59e0b",
+      "startIndex": 1,
+      "endIndex": 3,
+      "dataType": "uint16"
+    },
+    {
+      "label": "Sıcaklık",
+      "color": "#34d399",
+      "startIndex": 3,
+      "endIndex": 7,
+      "dataType": "float"
+    }
+  ],
+  "name": "Sensör paketi"
+}

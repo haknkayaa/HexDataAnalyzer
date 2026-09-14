@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "name": "Düz metin giriş örneği",
+  "sourceFormat": "ascii",
+  "source": "PING|0001|OK",
+  "fields": [
+    { "label": "Komut", "color": "#a78bfa", "startIndex": 0, "endIndex": 4, "dataType": "ascii" },
+    { "label": "Ayırıcı", "color": "#f59e0b", "startIndex": 4, "endIndex": 5, "dataType": "char" },
+    { "label": "Sıra", "color": "#60a5fa", "startIndex": 5, "endIndex": 9, "dataType": "ascii" },
+    { "label": "Durum", "color": "#34d399", "startIndex": 10, "endIndex": 12, "dataType": "ascii" }
+  ]
+}

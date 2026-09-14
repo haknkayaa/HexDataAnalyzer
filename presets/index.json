@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "examples": [
+    { "name": "Hex metin dosyası", "file": "examples/sample.hex", "format": "hex" },
+    { "name": "TXT içinde hex", "file": "examples/sample.txt", "format": "hex" },
+    { "name": "Ham DAT dosyası", "file": "examples/sample.dat", "format": "binary" },
+    { "name": "Ham BIN dosyası", "file": "examples/sample.bin", "format": "binary" }
+  ],
+  "presets": [
+    {
+      "id": "ascii",
+      "file": "ascii.json"
+    },
+    {
+      "id": "sensor",
+      "file": "sensor.json"
+    },
+    {
+      "id": "header",
+      "file": "header.json"
+    },
+    {
+      "id": "ethernetUdp",
+      "file": "ethernetUdp.json"
+    },
+    {
+      "id": "ethernetTcp",
+      "file": "ethernetTcp.json"
+    },
+    {
+      "id": "ipv4Header",
+      "file": "ipv4Header.json"
+    },
+    {
+      "id": "numericTypes",
+      "file": "numericTypes.json"
+    },
+    {
+      "id": "timestampRecord",
+      "file": "timestampRecord.json"
+    },
+    {
+      "id": "statusFlags",
+      "file": "statusFlags.json"
+    },
+    {
+      "id": "tlvMessage",
+      "file": "tlvMessage.json"
+    },
+    {
+      "id": "base64Example",
+      "file": "base64Example.json"
+    },
+    {
+      "id": "textExample",
+      "file": "textExample.json"
+    }
+  ]
+}

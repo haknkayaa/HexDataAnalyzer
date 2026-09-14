@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "hex": "B2 03 00 7D",
+  "fields": [
+    {
+      "label": "Durum bayrakları",
+      "color": "#c084fc",
+      "startIndex": 0,
+      "endIndex": 1,
+      "dataType": "custom",
+      "children": [
+        { "label": "Hazır", "scope": "bit", "start": 0, "end": 1, "type": "uint8" },
+        { "label": "Mod", "scope": "bit", "start": 1, "end": 4, "type": "uint8" },
+        { "label": "Hata", "scope": "bit", "start": 4, "end": 5, "type": "uint8" },
+        { "label": "Kanal", "scope": "bit", "start": 5, "end": 8, "type": "uint8" }
+      ]
+    },
+    { "label": "Sayaç", "color": "#60a5fa", "startIndex": 1, "endIndex": 2, "dataType": "uint8" },
+    { "label": "Ölçüm", "color": "#34d399", "startIndex": 2, "endIndex": 4, "dataType": "uint16" }
+  ],
+  "name": "Bit alanları ve durum"
+}

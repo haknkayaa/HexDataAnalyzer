@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "hex": "48 65 6C 6C 6F",
+  "fields": [
+    {
+      "label": "Metin",
+      "color": "#a78bfa",
+      "startIndex": 0,
+      "endIndex": 5,
+      "dataType": "ascii"
+    }
+  ],
+  "name": "ASCII metin"
+}
+

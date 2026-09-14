@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "hex": "4C 4F 47 31 65 53 F1 00 00 00 00 2A 4F 4B",
+  "fields": [
+    { "label": "Kayıt imzası", "color": "#a78bfa", "startIndex": 0, "endIndex": 4, "dataType": "ascii" },
+    { "label": "Oluşturulma zamanı", "color": "#60a5fa", "startIndex": 4, "endIndex": 8, "dataType": "epochUtc" },
+    { "label": "Sıra numarası", "color": "#f59e0b", "startIndex": 8, "endIndex": 12, "dataType": "uint32" },
+    { "label": "Durum metni", "color": "#34d399", "startIndex": 12, "endIndex": 14, "dataType": "ascii" }
+  ],
+  "name": "Zaman damgalı kayıt"
+}

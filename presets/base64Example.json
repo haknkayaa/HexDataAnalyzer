@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "name": "Base64 giriş örneği",
+  "sourceFormat": "base64",
+  "source": "SGVsbG8gSGV4c2NvcGU=",
+  "fields": [
+    { "label": "Selamlama", "color": "#60a5fa", "startIndex": 0, "endIndex": 5, "dataType": "ascii" },
+    { "label": "Ayırıcı", "color": "#f59e0b", "startIndex": 5, "endIndex": 6, "dataType": "char" },
+    { "label": "Ürün", "color": "#34d399", "startIndex": 6, "endIndex": 14, "dataType": "ascii" }
+  ]
+}

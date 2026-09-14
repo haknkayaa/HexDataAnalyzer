@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "hex": "01 04 54 45 53 54 02 02 01 F4 03 01 01",
+  "fields": [
+    { "label": "Etiket 1 türü", "color": "#a78bfa", "startIndex": 0, "endIndex": 1, "dataType": "uint8" },
+    { "label": "Etiket 1 uzunluğu", "color": "#818cf8", "startIndex": 1, "endIndex": 2, "dataType": "uint8" },
+    { "label": "Etiket 1 değeri", "color": "#34d399", "startIndex": 2, "endIndex": 6, "dataType": "ascii" },
+    { "label": "Etiket 2 türü", "color": "#f472b6", "startIndex": 6, "endIndex": 7, "dataType": "uint8" },
+    { "label": "Etiket 2 uzunluğu", "color": "#fb7185", "startIndex": 7, "endIndex": 8, "dataType": "uint8" },
+    { "label": "Etiket 2 değeri", "color": "#f59e0b", "startIndex": 8, "endIndex": 10, "dataType": "uint16" },
+    { "label": "Etiket 3", "color": "#38bdf8", "startIndex": 10, "endIndex": 13, "dataType": "hex" }
+  ],
+  "name": "TLV mesajı"
+}

@@ -1,99 +1,202 @@
-<!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<!doctype html>
+<html lang="tr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hex Data Analyzer</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- add style.css file -->
+    <meta name="description" content="Hex verisini parçalara ayırın, inceleyin ve dönüştürün.">
+    <title>Hexscope — Hex Data Analyzer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
-    <!-- create loader div -->
-    <div class="loader"><span id="counter"> Loading ...<i></i></span>
-        <div class="spinner"></div>
+    <div class="loader" role="status" aria-live="polite">
+        <div class="loader-mark">H</div>
+        <span id="counter">Hazırlanıyor…</span>
     </div>
 
     <div class="content">
-        <div class="container">
-            <h3>Hex Data Analyzer</h3>
-            <!-- create two column 80-20 width-->
-            <div style="display: flex; flex-direction: row; ">
-                <div style="width: 80%; margin-right: 20px; background-color: #272727; color: #ffffff; border: 1 px;">
-                    <!-- create textplaceholder multiline with dark mode, full width-->
-                    <textarea id="myTextarea"
-                        style="width: 100%; height: 200px; font-family: 'Courier New', Courier, monospace; "></textarea>
+        <header class="site-header">
+            <a class="brand" href="./" aria-label="Hexscope ana sayfa">
+                <span class="brand-mark" aria-hidden="true">H</span>
+                <span>hexscope</span>
+            </a>
+            <nav class="site-nav" aria-label="Ana menü">
+                <button id="headerShareButton" class="header-share" type="button" onclick="shareSchemaUrl()" title="Mevcut parser şemasının paylaşılabilir bağlantısını kopyala">
+                    <svg class="github-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.1.1l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"/><path d="M14 11a5 5 0 0 0-7.1-.1l-2 2A5 5 0 0 0 12 20l1.1-1.1"/></svg>
+                    <span>Benzersiz paylaşılabilir linki kopyala</span>
+                </button>
+                <a class="github-link" href="https://github.com/haknkayaa/HexDataAnalyzer" target="_blank" rel="noreferrer">
+                    <svg class="github-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.39v-1.5c-2.23.49-2.7-.95-2.7-.95-.36-.93-.89-1.18-.89-1.18-.73-.5.06-.49.06-.49.81.06 1.23.83 1.23.83.72 1.23 1.88.88 2.34.67.07-.52.28-.88.51-1.08-1.78-.2-3.65-.89-3.65-3.96 0-.88.31-1.59.83-2.15-.08-.2-.36-1.02.08-2.12 0 0 .68-.22 2.2.82A7.64 7.64 0 0 1 8 3.79c.68 0 1.36.09 2 .27 1.52-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.52.56.83 1.27.83 2.15 0 3.08-1.87 3.76-3.66 3.96.29.25.54.73.54 1.47v2.17c0 .22.14.47.55.39A8 8 0 0 0 8 0Z" /></svg>
+                    GitHub
+                </a>
+            </nav>
+        </header>
 
+        <main class="app-shell">
+            <div id="analyzer" class="workspace-grid">
+                <section class="panel input-panel" aria-labelledby="input-title">
+                    <div class="panel-heading">
+                        <div>
+                            <h2 id="input-title">Ham hex verisi</h2>
+                        </div>
+                        <div class="input-settings">
+                            <label class="preset-select" for="inputFormat">
+                                <span>Girdi biçimi</span>
+                                <select id="inputFormat">
+                                    <option value="hex" selected>Hex</option>
+                                    <option value="base64">Base64</option>
+                                    <option value="ascii">ASCII</option>
+                                </select>
+                            </label>
+                            <label class="preset-select" for="endianSelect">
+                                <span>Byte sırası</span>
+                                <select id="endianSelect" onchange="analyze()">
+                                    <option value="big" selected>Big-endian</option>
+                                    <option value="little">Little-endian</option>
+                                </select>
+                            </label>
+                            <label class="preset-select" for="presetSelect">
+                                <span>Preset</span>
+                                <select id="presetSelect" onchange="loadPreset(this.value)" disabled aria-busy="true">
+                                    <option value="" selected>Presetler yükleniyor…</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+
+                    <p id="hexInputHint" class="byte-hint">Her byte için 2 hex karakteri</p>
+                    <textarea id="myTextarea" spellcheck="false" autocomplete="off" placeholder="Örn. 48 65 6C 6C 6F 20 57 6F 72 6C 64" aria-label="Hex verisi girin" aria-describedby="hexInputHint inputFeedback"></textarea>
+                    <p id="inputFeedback" class="form-feedback" role="status" aria-live="polite"></p>
+
+                    <div class="input-actions">
+                        <p class="input-help"><span class="status-dot"></span> Girdi değiştikçe analiz güncellenir.</p>
+                        <div class="button-group">
+                            <input id="dataFile" class="sr-only" type="file" accept=".bin,.dat,.hex,.txt,.pcap,.pcapng" aria-label="Ham veri dosyası seç; desteklenen formatlar BIN, DAT, HEX, TXT, PCAP ve PCAPNG" onchange="importDataFile(event)">
+                            <button type="button" class="button button-ghost" onclick="convertInputFormat();">Dönüştür</button>
+                            <button type="button" class="button button-ghost" onclick="openDataFileDialog();">
+                                <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12" /><path d="m7 10 5 5 5-5" /><path d="M5 21h14" /></svg>
+                                <span>Dosya aç</span>
+                                <small class="file-formats">(.bin, .dat, .hex, .txt, .pcap, .pcapng)</small>
+                            </button>
+                            <button type="button" class="button button-ghost" onclick="clearContent();">
+                                <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 3 5 5-9.5 9.5a2.12 2.12 0 0 1-3 0L3 12l8-8a2.12 2.12 0 0 1 3 0l2 2ZM3 21h18" /></svg>
+                                Temizle
+                            </button>
+                            <button type="button" class="button button-primary" onclick="analyze();">
+                                <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /><path d="M3 12h12" /></svg>
+                                Analiz et
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel fields-panel" aria-labelledby="fields-title">
+                    <div class="panel-heading fields-heading">
+                        <div>
+                            <h2 id="fields-title">Alan tanımları</h2>
+                            <p class="panel-description">Byte indeksleri başlangıç dahil, bitiş hariç çalışır.</p>
+                        </div>
+                        <div class="field-actions">
+                            <input id="definitionsFile" class="sr-only" type="file" accept="application/json,.json,.yaml,.yml,text/yaml" onchange="importDefinitions(event)">
+                            <button type="button" class="button button-ghost button-compact" onclick="openImportDialog();">
+                                <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12" /><path d="m7 10 5 5 5-5" /><path d="M5 21h14" /></svg>
+                                İçe aktar
+                            </button>
+                            <button type="button" class="button button-ghost button-compact" onclick="exportDefinitions();">
+                                <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V9" /><path d="m7 14 5-5 5 5" /><path d="M5 3h14" /></svg>
+                                Dışa aktar
+                            </button>
+                            <button type="button" class="button button-secondary" onclick="addNewIdentifier();">
+                                <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+                                Alan ekle
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-wrap" tabindex="0" role="region" aria-label="Alan tanımları tablosu; dar ekranlarda yatay kaydırılabilir">
+                        <table id="highlightTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Alan adı</th>
+                                    <th scope="col">Renk</th>
+                                    <th scope="col">Başlangıç</th>
+                                    <th scope="col">Bitiş</th>
+                                    <th scope="col">Tür</th>
+                                    <th scope="col">Dönüştürülen değer</th>
+                                    <th scope="col"><span class="sr-only">İşlem</span></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <section class="result-section" aria-labelledby="result-title">
+                <div class="result-heading">
+                    <div>
+                        <h2 id="result-title">İnceleme görünümü</h2>
+                    </div>
+                    <div class="result-actions">
+                        <button id="toggleAnnotationsButton" type="button" class="button button-copy button-icon-only" onclick="toggleInspectionAnnotations();" aria-pressed="true" aria-label="Alan açıklamalarını gizle" title="Alan açıklamalarını gizle">
+                            <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" /><circle cx="12" cy="12" r="2.5" /></svg>
+                        </button>
+                        <button id="copyInspectionButton" type="button" class="button button-copy" onclick="copyInspection();">
+                            <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+                            <span class="button-label">Kopyala</span>
+                        </button>
+                    </div>
                 </div>
-                <div style="width: 20%;">
-                    <!-- create 3buttons in a column -->
-                    <button type="button" class="btn btn-outline-success" style="width: 100%; margin-bottom: 5px;"
-                        onclick="analyze();">Analyze</button>
-                    <button type="button" class="btn btn-outline-success" style="width: 100%; margin-bottom: 5px;"
-                        onclick="clearContent();">Clear</button>
-                    <button type="button" class="btn btn-outline-success" style="width: 100%;"
-                        onclick="test();">Test</button>
+                <div id="resultContainer" class="result-output" aria-live="polite">
+                    <span class="empty-result">Hex verisi girildiğinde işaretlenmiş byte’lar burada görünür.</span>
+                </div>
+                <p id="resultText"></p>
+            </section>
+
+            <section class="tools-panel panel" aria-labelledby="tools-title">
+                <div class="panel-heading"><div><h2 id="tools-title">Gelişmiş araçlar</h2><p class="panel-description">Arama, checksum, frame ayırma, schema paylaşımı ve çıktı alma.</p></div></div>
+                <div class="tool-grid">
+                    <div class="tool-card"><h3>Arama</h3><div class="tool-row"><select id="searchMode"><option value="hex">Hex</option><option value="ascii">ASCII</option><option value="numeric">Sayısal</option></select><input id="searchQuery" type="text" placeholder="48 65 veya Hello"><button class="button button-secondary" type="button" onclick="runBinarySearch()">Ara</button></div><output id="searchResult">—</output></div>
+                    <div class="tool-card"><h3>Bütünlük</h3><button class="button button-secondary" type="button" onclick="calculateChecksums()">CRC / checksum hesapla</button><output id="checksumResult">—</output></div>
+                    <div class="tool-card"><h3>Frame ayırma</h3><div class="tool-row"><input id="frameMagic" type="text" placeholder="Magic: AA 55"><button class="button button-secondary" type="button" onclick="splitCurrentFrames()">Ayır</button></div><output id="frameResult">—</output></div>
+                    <div class="tool-card"><h3>Schema ve çıktı</h3><div class="tool-buttons"><button class="button button-ghost" type="button" onclick="exportSchema('json')">Schema JSON</button><button class="button button-ghost" type="button" onclick="exportSchema('yaml')">Schema YAML</button><button class="button button-ghost" type="button" onclick="exportDecoded('json')">Sonuç JSON</button><button class="button button-ghost" type="button" onclick="exportDecoded('csv')">Sonuç CSV</button></div><output id="schemaResult">—</output></div>
+                    <div class="tool-card"><h3>Binary diff</h3><input id="diffFile" class="sr-only" type="file" accept=".bin,.dat,.hex,.txt" aria-label="Karşılaştırılacak dosyayı seç; desteklenen formatlar BIN, DAT, HEX ve TXT" onchange="compareDataFile(event)"><button class="button button-secondary file-button" type="button" onclick="document.getElementById('diffFile').click()"><span>Dosya seç</span><small class="file-formats">(.bin, .dat, .hex, .txt)</small></button><output id="diffResult">—</output></div>
+                </div>
+            </section>
+
+            <div id="popup"></div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-brand">
+                <a class="brand" href="./" aria-label="Hexscope ana sayfa">
+                    <span class="brand-mark" aria-hidden="true">H</span>
+                    <span>hexscope</span>
+                </a>
+                <div class="footer-intro">
+                    <p class="footer-title">Hex verinizi anlamlı alanlara ayırın.</p>
+                    <p>Byte aralıklarını seçin, türünü belirleyin ve ham verinin nasıl yorumlandığını anında görün.</p>
                 </div>
             </div>
-        </div>
-
-        <!-- horizontal line full width -->
-        <hr style=" width: 100%;">
-
-        <div class="container">
-            <table id="highlightTable">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Label</th>
-                        <th>Color</th>
-                        <th>From ..</th>
-                        <th>Than ..</th>
-                        <th>Type</th>
-                        <th>Conversion</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- create a button center of page name of "add new identifier" -->
-        <div class="container">
-            <div style="text-align: center;">
-                <button type="button" class="btn btn-outline-success" style="width: 200px;"
-                    onclick="addNewIdentifier();">Add New Identifier</button>
+            <div class="footer-links">
+                <span>Developed by <a href="https://github.com/haknkayaa" target="_blank" rel="noreferrer">Hakan Kaya</a></span>
             </div>
-        </div>
-
-        <!-- horizontal line full width -->
-        <hr style=" width: 100%;">
-
-        <!-- result text -->
-        <div class="block-wide">
-
-            <!-- Header -->
-            <div style="text-align: center;">
-                <h3>Result</h3>
-            </div>
-            <div style="text-align: center;" id="resultContainer"></div>
-            <p id="resultText"></p>
-        </div>
-        <div id="popup"></div>
+            <a class="github-link footer-github" href="https://github.com/haknkayaa/HexDataAnalyzer" target="_blank" rel="noreferrer">
+                <svg class="github-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.39v-1.5c-2.23.49-2.7-.95-2.7-.95-.36-.93-.89-1.18-.89-1.18-.73-.5.06-.49.06-.49.81.06 1.23.83 1.23.83.72 1.23 1.88.88 2.34.67.07-.52.28-.88.51-1.08-1.78-.2-3.65-.89-3.65-3.96 0-.88.31-1.59.83-2.15-.08-.2-.36-1.02.08-2.12 0 0 .68-.22 2.2.82A7.64 7.64 0 0 1 8 3.79c.68 0 1.36.09 2 .27 1.52-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.52.56.83 1.27.83 2.15 0 3.08-1.87 3.76-3.66 3.96.29.25.54.73.54 1.47v2.17c0 .22.14.47.55.39A8 8 0 0 0 8 0Z" /></svg>
+                GitHub
+            </a>
+        </footer>
     </div>
-    </div>
+
+    <script src="input-tools.js?v=1"></script>
+    <script src="schema-tools.js?v=1"></script>
+    <script src="binary-tools.js?v=1"></script>
+    <script src="controller.js?v=13"></script>
 </body>
-<hr>
-<footer class="footer">
-    <p>Created by Hakan Kaya - 2024</p>
-</footer>
-
-<script src="controller.js"></script>
 
 </html>

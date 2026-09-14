@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "hex": "00 11 22 33 44 55 66 77 88 99 AA BB 08 00 45 00 00 20 1C 46 40 00 40 11 B1 E6 C0 A8 01 0A C0 A8 01 14 C0 00 00 35 00 0C 00 00 54 65 73 74",
+  "fields": [
+    {
+      "label": "Hedef MAC",
+      "color": "#a78bfa",
+      "startIndex": 0,
+      "endIndex": 6,
+      "dataType": "mac"
+    },
+    {
+      "label": "Kaynak MAC",
+      "color": "#818cf8",
+      "startIndex": 6,
+      "endIndex": 12,
+      "dataType": "mac"
+    },
+    {
+      "label": "EtherType",
+      "color": "#f59e0b",
+      "startIndex": 12,
+      "endIndex": 14,
+      "dataType": "hex"
+    },
+    {
+      "label": "IP toplam uzunluk",
+      "color": "#60a5fa",
+      "startIndex": 16,
+      "endIndex": 18,
+      "dataType": "uint16"
+    },
+    {
+      "label": "IP protokolü",
+      "color": "#f472b6",
+      "startIndex": 23,
+      "endIndex": 24,
+      "dataType": "protocol"
+    },
+    {
+      "label": "Kaynak IP",
+      "color": "#34d399",
+      "startIndex": 26,
+      "endIndex": 30,
+      "dataType": "ipv4"
+    },
+    {
+      "label": "Hedef IP",
+      "color": "#22c55e",
+      "startIndex": 30,
+      "endIndex": 34,
+      "dataType": "ipv4"
+    },
+    {
+      "label": "UDP kaynak port",
+      "color": "#fb7185",
+      "startIndex": 34,
+      "endIndex": 36,
+      "dataType": "uint16"
+    },
+    {
+      "label": "UDP hedef port",
+      "color": "#f97316",
+      "startIndex": 36,
+      "endIndex": 38,
+      "dataType": "uint16"
+    },
+    {
+      "label": "UDP uzunluğu",
+      "color": "#eab308",
+      "startIndex": 38,
+      "endIndex": 40,
+      "dataType": "uint16"
+    },
+    {
+      "label": "UDP payload",
+      "color": "#38bdf8",
+      "startIndex": 42,
+      "endIndex": 46,
+      "dataType": "ascii"
+    }
+  ],
+  "name": "Ethernet · IPv4 · UDP"
+}

@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "hex": "45 00 00 3C 1C 46 40 00 40 06 B1 E6 C0 00 02 0A C6 33 64 14",
+  "fields": [
+    {
+      "label": "Sürüm ve IHL",
+      "color": "#a78bfa",
+      "startIndex": 0,
+      "endIndex": 1,
+      "dataType": "custom",
+      "children": [
+        { "label": "IP sürümü", "scope": "bit", "start": 0, "end": 4, "type": "uint8" },
+        { "label": "Başlık uzunluğu", "scope": "bit", "start": 4, "end": 8, "type": "uint8" }
+      ]
+    },
+    { "label": "Toplam uzunluk", "color": "#60a5fa", "startIndex": 2, "endIndex": 4, "dataType": "uint16" },
+    { "label": "Kimlik", "color": "#f59e0b", "startIndex": 4, "endIndex": 6, "dataType": "hex" },
+    { "label": "TTL", "color": "#34d399", "startIndex": 8, "endIndex": 9, "dataType": "uint8" },
+    { "label": "Protokol", "color": "#f472b6", "startIndex": 9, "endIndex": 10, "dataType": "protocol" },
+    { "label": "Başlık checksum", "color": "#eab308", "startIndex": 10, "endIndex": 12, "dataType": "hex" },
+    { "label": "Kaynak IPv4", "color": "#22c55e", "startIndex": 12, "endIndex": 16, "dataType": "ipv4" },
+    { "label": "Hedef IPv4", "color": "#38bdf8", "startIndex": 16, "endIndex": 20, "dataType": "ipv4" }
+  ],
+  "name": "IPv4 başlığı"
+}

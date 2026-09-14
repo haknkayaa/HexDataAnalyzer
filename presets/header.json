@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "hex": "48 44 52 00 00 00 0A",
+  "fields": [
+    {
+      "label": "İmza",
+      "color": "#f472b6",
+      "startIndex": 0,
+      "endIndex": 3,
+      "dataType": "ascii"
+    },
+    {
+      "label": "Payload boyutu",
+      "color": "#818cf8",
+      "startIndex": 3,
+      "endIndex": 7,
+      "dataType": "uint32"
+    }
+  ],
+  "name": "Mesaj başlığı"
+}
